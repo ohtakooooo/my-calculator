@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수당 계산기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="page1" class="page active">
+            <div class="header">
+                <h1>나의 수당 계산기</h1>
+                <p>실제 일한 시간을 계산하여 수당을 확인해보세요.</p>
+            </div>
+
+            <div class="input-section">
+                <h2>1. 내 계약 정보 입력하기</h2>
+                <div class="input-group">
+                    <label for="annual-salary">계약 연봉</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="annual-salary" placeholder="예: 65000000">
+                        <span>원</span>
+                    </div>
+                </div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="contract-start-time">계약상 근로 시작 시간</label>
+                        <input type="time" id="contract-start-time" value="10:00">
+                    </div>
+                    <div class="input-group">
+                        <label for="contract-end-time">계약상 근로 종료 시간</label>
+                        <input type="time" id="contract-end-time" value="19:00">
+                    </div>
+                </div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="break-start-time">휴게 시작 시간 (점심)</label>
+                        <input type="time" id="break-start-time" value="12:30">
+                    </div>
+                    <div class="input-group">
+                        <label for="break-end-time">휴게 종료 시간 (점심)</label>
+                        <input type="time" id="break-end-time" value="13:30">
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-section">
+                <h2>2. 무엇을 계산할까요?</h2>
+                <button class="nav-button" id="goto-page2">
+                    <span class="nav-title">하루 근무시간 분석하기</span>
+                    <span class="nav-desc">오늘 일한 시간의 연장/야간 근무를 계산해요</span>
+                </button>
+                <button class="nav-button" id="goto-page3">
+                    <span class="nav-title">월별 초과수당 계산하기</span>
+                    <span class="nav-desc">이번 달 총 초과근무 시간으로 내 수당을 계산해요</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="page2" class="page">
+            <div class="header">
+                <h1>하루 근무시간 분석기</h1>
+                <p>실제 출퇴근 시간을 입력하여 초과된 시간을 분석합니다.</p>
+            </div>
+            
+            <div class="info-display-box">
+                <p><strong>계약 연봉:</strong> <span id="display-salary-p2"></span></p>
+                <p><strong>계약 근로시간:</strong> <span id="display-work-time-p2"></span></p>
+            </div>
+
+            <div class="input-section">
+                <h2>오늘 실제 근무 정보 입력</h2>
+                <div class="input-group">
+                    <label>근무 유형</label>
+                    <div class="radio-group">
+                        <input type="radio" id="workday-weekday" name="workday-type" value="weekday" checked>
+                        <label for="workday-weekday">평일</label>
+                        <input type="radio" id="workday-holiday" name="workday-type" value="holiday">
+                        <label for="workday-holiday">주말/공휴일</label>
+                    </div>
+                </div>
+                 <div class="input-grid">
+                    <div class="input-group">
+                        <label for="real-start-time">실제 출근 시간</label>
+                        <input type="time" id="real-start-time" value="09:30">
+                    </div>
+                    <div class="input-group">
+                        <label for="real-end-time">실제 퇴근 시간</label>
+                        <input type="time" id="real-end-time" value="23:00">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="extra-break-hours">총 휴게시간 (점심, 저녁 등)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="extra-break-hours" step="0.25" placeholder="예: 1.25 (1시간 15분)">
+                        <span>시간</span>
+                    </div>
+                </div>
+                <button class="calc-button" id="calculate-daily-hours">분석하기</button>
+            </div>
+
+            <div id="daily-result-section" class="result-section hidden">
+                 <h2>분석 결과: 초과근무 시간</h2>
+                 <div class="result-breakdown" id="daily-hours-breakdown">
+                    </div>
+                <div class="result-item total-pay daily-total">
+                    <p>오늘 하루의 총 예상 수당</p>
+                    <h3 id="total-daily-pay">0 원</h3>
+                </div>
+            </div>
+
+            <button class="back-button" data-target="page1">« 처음으로 돌아가기</button>
+        </div>
+
+        <div id="page3" class="page">
+             <div class="header">
+                <h1>월별 초과수당 계산기</h1>
+                <p>이번 달 총 초과근무 시간을 입력하여 최종 수당을 계산합니다.</p>
+            </div>
+
+             <div class="info-display-box">
+                <p><strong>계약 연봉:</strong> <span id="display-salary-p3"></span></p>
+                <p><strong>통상 시급:</strong> <span id="display-hourly-wage-p3"></span></p>
+            </div>
+
+            <div class="input-section">
+                <h2>이번 달 총 초과근무 시간 입력</h2>
+                <div class="input-explanation">
+                    <p>'하루 근무시간 분석기'에서 계산된 시간들을 한 달치 모아서 합산한 후, 아래 항목에 입력하세요. (15분 = 0.25시간)</p>
+                </div>
+                <div class="overtime-inputs">
+                    <div class="input-group"><label for="total-ot-weekday">평일 연장근로 (1.5배)</label><input type="number" id="total-ot-weekday" step="0.25" placeholder="예: 20.5"></div>
+                    <div class="input-group"><label for="total-ot-night">평일 야간근로 (2.0배)</label><input type="number" id="total-ot-night" step="0.25" placeholder="예: 9.75"></div>
+                    <div class="input-group"><label for="total-ot-holiday">주말/휴일 (8시간 이내, 1.5배)</label><input type="number" id="total-ot-holiday" step="0.25" placeholder="예: 10"></div>
+                    <div class="input-group"><label for="total-ot-holiday-over">주말/휴일 (8시간 초과, 2.0배)</label><input type="number" id="total-ot-holiday-over" step="0.25" placeholder="예: 2.25"></div>
+                    <div class="input-group"><label for="total-ot-holiday-night">주말/휴일 야간 (2.5배)</label><input type="number" id="total-ot-holiday-night" step="0.25" placeholder="예: 3.5"></div>
+                </div>
+                <button class="calc-button" id="calculate-monthly-pay">최종 수당 계산하기</button>
+            </div>
+
+            <div id="monthly-result-section" class="result-section hidden">
+                <h2>분석 결과</h2>
+                <div class="result-breakdown">
+                    <div class="breakdown-item"><span>평일 연장 수당</span><span id="result-monthly-weekday">0 원</span></div>
+                    <div class="breakdown-item"><span>평일 야간 수당</span><span id="result-monthly-night">0 원</span></div>
+                    <div class="breakdown-item"><span>주말/휴일 수당 (기본)</span><span id="result-monthly-holiday">0 원</span></div>
+                    <div class="breakdown-item"><span>주말/휴일 수당 (초과)</span><span id="result-monthly-holiday-over">0 원</span></div>
+                    <div class="breakdown-item"><span>주말/휴일 야간 수당</span><span id="result-monthly-holiday-night">0 원</span></div>
+                </div>
+                <div class="result-item total-pay">
+                    <p>이번 달, 당신이 받아야 할<br><strong>총 초과근무수당은...</strong></p>
+                    <h3 id="total-monthly-pay">0 원</h3>
+                </div>
+            </div>
+
+            <button class="back-button" data-target="page1">« 처음으로 돌아가기</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

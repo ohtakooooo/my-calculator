@@ -1,0 +1,112 @@
+/* 기본 스타일 초기화 및 글꼴 설정 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f0f2f5; color: #333; display: flex;
+    justify-content: center; align-items: flex-start; min-height: 100vh;
+    margin: 0; padding: 30px; box-sizing: border-box;
+}
+.app-container { width: 100%; max-width: 700px; }
+
+/* 페이지 전환 효과 */
+.page {
+    display: none; background-color: #ffffff; padding: 40px;
+    border-radius: 12px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease;
+}
+.page.active { display: block; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 헤더(제목) 영역 스타일 */
+.header { text-align: center; margin-bottom: 40px; }
+.header h1 { font-size: 2.5rem; color: #1c1e21; margin-bottom: 10px; }
+.header p { font-size: 1.1rem; color: #606770; }
+
+/* 입력 섹션 스타일 */
+.input-section h2, .navigation-section h2 {
+    text-align: left; font-size: 1.5rem; color: #1c1e21; margin-top: 40px;
+    margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #1877f2;
+}
+.input-group { margin-bottom: 20px; text-align: left; }
+.input-group label { display: block; font-weight: 600; color: #4b4f56; margin-bottom: 8px; }
+.input-wrapper { display: flex; align-items: center; }
+.input-group input[type="number"], .input-group input[type="time"] {
+    width: 100%; padding: 12px 15px; border: 1px solid #ccd0d5;
+    border-radius: 6px; font-size: 1rem; box-sizing: border-box;
+}
+.input-wrapper span { margin-left: 10px; font-weight: 500; color: #606770; }
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+/* 네비게이션 버튼 스타일 */
+.navigation-section { margin-top: 50px; }
+.nav-button {
+    display: flex; flex-direction: column; align-items: flex-start; width: 100%;
+    padding: 20px; margin-bottom: 15px; background-color: #f7f8fa;
+    border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer; text-align: left;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.nav-button:hover { background-color: #e7f3ff; border-color: #1877f2; }
+.nav-button .nav-title { font-size: 1.2rem; font-weight: bold; color: #1877f2; }
+.nav-button .nav-desc { font-size: 1rem; color: #606770; margin-top: 5px; }
+
+/* 공통 UI 스타일 */
+.info-display-box {
+    background-color: #f0f2f5; padding: 20px; border-radius: 8px;
+    text-align: left; line-height: 1.6; margin-bottom: 20px;
+}
+.info-display-box p { margin: 5px 0; }
+.info-display-box span { font-weight: bold; color: #1877f2; }
+.calc-button {
+    width: 100%; padding: 15px; font-size: 1.2rem; font-weight: bold;
+    color: #fff; background-color: #42b72a; border: none; border-radius: 6px;
+    cursor: pointer; transition: background-color 0.2s; margin-top: 10px;
+}
+.calc-button:hover { background-color: #36a420; }
+.result-section { margin-top: 40px; }
+.result-section.hidden { display: none; }
+.result-section h2 { text-align: center; font-size: 1.8rem; color: #1c1e21; margin-bottom: 20px; }
+.result-breakdown {
+    border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px 20px; margin-bottom: 20px;
+}
+.breakdown-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 0; font-size: 1.1rem;
+}
+.breakdown-item:not(:last-child) { border-bottom: 1px solid #e9ebee; }
+.breakdown-item span:first-child { color: #606770; }
+.breakdown-item span:last-child { color: #1c1e21; font-weight: 600; }
+.result-info {
+    text-align: center; color: #606770; background-color: #e7f3ff;
+    padding: 15px; border-radius: 8px;
+}
+.back-button {
+    margin-top: 40px; background: none; border: none; color: #1877f2;
+    font-size: 1rem; font-weight: 600; cursor: pointer; display: block; text-align: center; width: 100%;
+}
+.overtime-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px; }
+.input-explanation {
+    background-color: #fffbe6; border-left: 5px solid #ffc107; padding: 15px 20px;
+    text-align: left; border-radius: 8px; margin-bottom: 30px; font-size: 0.95rem;
+}
+.result-item.total-pay {
+    background-color: #1c1e21; color: #fff; text-align: center; padding: 25px;
+}
+.result-item.total-pay p { color: #f0f2f5; font-size: 1.2rem; }
+.result-item.total-pay h3 { color: #42b72a; font-size: 3.2rem; }
+.result-item.total-pay.daily-total h3 { font-size: 2.8rem; }
+
+/* 라디오 버튼 그룹 스타일 */
+.radio-group { display: flex; }
+.radio-group input[type="radio"] { display: none; }
+.radio-group label {
+    flex: 1; text-align: center; padding: 12px; border: 1px solid #ccd0d5;
+    cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    background-color: #f0f2f5; color: #606770;
+}
+.radio-group label:first-of-type { border-radius: 6px 0 0 6px; }
+.radio-group label:last-of-type { border-radius: 0 6px 6px 0; border-left: none; }
+.radio-group input[type="radio"]:checked + label {
+    background-color: #1877f2; color: #fff; border-color: #1877f2;
+}
